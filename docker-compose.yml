@@ -1,0 +1,31 @@
+version: "3"
+services:
+  backflask:
+    build: ./backflask
+    container_name: 'crypto_api_back_flask'
+    command: sh -c 'python app.py'
+    ports:
+      - '5000:5000'
+    volumes:
+      - ./backflask:/backflask
+    depends_on:
+      - "db-crypto-fr"
+
+  db-crypto-fr:
+    container_name: 'db_mongo_crypto'
+    image: mongo
+    ports:
+      - '27017:27017'
+
+  frontreact:
+    build: ./frontreact
+    container_name: 'crypto_api_frontreact'
+    command: sh -c 'npm install; npm start'
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./frontreact:/frontreact
+    depends_on:
+      - "backflask"
+    stdin_open: true
+    tty: true
