@@ -9,9 +9,9 @@ services:
     volumes:
       - ./backflask:/backflask
     depends_on:
-      - "db-crypto-fr"
+      - "db"
 
-  db-crypto-fr:
+  db:
     container_name: 'db_mongo_crypto'
     image: mongo
     ports:

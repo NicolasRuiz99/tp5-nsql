@@ -9,9 +9,11 @@ CORS(app)
 
 @app.route('/', methods=['GET'])
 def index():
-    print("OK")
-    res = inicializar()
-    return "OK"
+    db = inicializar()
+    res = []
+    for x in db.customers.find({}):
+        res.append(x)
+    return str(res)
 
 
 if __name__ == '__main__':
