@@ -10,12 +10,19 @@ services:
       - ./backflask:/backflask
     depends_on:
       - "db"
+      - "db2"
 
   db:
     container_name: 'db_mongo_crypto'
     image: mongo
     ports:
       - '27017:27017'
+
+  db2:
+    container_name: 'db_mongo_crypto_hash'
+    image: mongo
+    ports:
+      - '27018:27018'
 
   frontreact:
     build: ./frontreact
