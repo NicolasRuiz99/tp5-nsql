@@ -7,7 +7,21 @@ const App = () => {
 		<Fragment>
 			<Router>
 			<Switch>
-				<Route exact path="/" component={Home} />
+				<Route exact path="/" render={()=>(
+					<Home 
+						type = {1}
+					/>
+				)} />
+				<Route exact path="/top5" render={()=>(
+					<Home 
+						type = {2}
+					/>
+				)} />
+				<Route exact path="/top20" render={()=>(
+					<Home 
+						type = {3}
+					/>
+				)} />
 			</Switch>
 			</Router>
 		</Fragment>

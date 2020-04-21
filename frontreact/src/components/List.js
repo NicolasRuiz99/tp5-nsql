@@ -1,7 +1,7 @@
 import React from 'react';
 import ListItem from './ListItem';
 
-const List = ({list}) => {
+const List = ({list,deleteCoin}) => {
 	return (
         <div>
             <table class="table">
@@ -20,6 +20,7 @@ const List = ({list}) => {
                         <ListItem 
                             key = {item.id}
                             item = {item}
+                            deleteCoin = {deleteCoin}
                         />
             ))}
             </tbody>

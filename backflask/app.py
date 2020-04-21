@@ -53,9 +53,11 @@ def update_db():
 @app.route('/delete', methods=['POST'])
 def delete():
     try:
-        id = request.json['id']
+        rank = request.json['rank']
         db = inicializar_db1()
-        db.list.delete_one({"id":str(id)})
+        db2 = inicializar_db2()
+        db.list.delete_one({"cmc_rank":str(rank)})
+        db2.list.delete_one({"cmc_rank":str(rank)})
         return "OK"
     except (Exception) as err:
         return str(err), 500
