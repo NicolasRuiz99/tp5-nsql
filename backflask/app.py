@@ -31,6 +31,8 @@ def validacion_one (item,db2):
         res = False
     return res
 
+#ruta para actualizar la bbdd con los datos de la api
+
 @app.route('/update_db', methods=['GET'])
 def update_db():
     try:
@@ -50,6 +52,8 @@ def update_db():
     except (Exception) as err:
         return str(err), 500
 
+#ruta para eliminar una criptomoneda dado el ranking
+
 @app.route('/delete', methods=['POST'])
 def delete():
     try:
@@ -62,9 +66,7 @@ def delete():
     except (Exception) as err:
         return str(err), 500
 
-@app.route('/get_api', methods=['GET'])
-def get_api():
-    return str(get_data())
+#ruta para buscar una moneda dado el nombre
 
 @app.route('/search', methods=['POST'])
 def search():
@@ -79,6 +81,8 @@ def search():
     except (Exception) as err:
         return str(err), 500
 
+#ruta para obtener una moneda dado el id
+
 @app.route('/get', methods=['POST'])
 def get():
     try:
@@ -91,6 +95,8 @@ def get():
         return jsonify (res)
     except (Exception) as err:
         return str(err), 500
+
+#listado de las 500 criptomonedas
 
 @app.route('/', methods=['GET'])
 def listall():
@@ -106,6 +112,8 @@ def listall():
     except (Exception) as err:
         return str(err), 500
 
+#listado del top5
+
 @app.route('/top5', methods=['GET'])
 def top5():
     try:
@@ -119,6 +127,8 @@ def top5():
         return jsonify (res)
     except (Exception) as err:
         return str(err), 500
+
+#listado del top20
 
 @app.route('/top20', methods=['GET'])
 def top20():
