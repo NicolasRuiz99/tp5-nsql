@@ -38,9 +38,33 @@ const deleteItem = async(rank) => {
         .catch(err => { throw err.response.data })
 }
 
+const search = async(name) => {
+    return axios
+        .post("http://localhost:5000/search", {
+            name
+        })
+        .then(res => {
+            return res.data
+        })
+        .catch(err => { throw err.response.data })
+}
+
+const get = async(id) => {
+    return axios
+        .post("http://localhost:5000/get", {
+            id
+        })
+        .then(res => {
+            return res.data
+        })
+        .catch(err => { throw err.response.data })
+}
+
 export {
     listAll,
     deleteItem,
     listTop5,
-    listTop20
+    listTop20,
+    search,
+    get
 };

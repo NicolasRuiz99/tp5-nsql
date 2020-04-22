@@ -72,10 +72,8 @@ def search():
         name = request.json["name"]
         db = inicializar_db1()
         db2 = inicializar_db2()
-        res = []
-        for x in db.list.find({"name":str(name)},{"_id":0}):
-            res.append(x)
-        if (validacion_one(res,db2) == False):
+        res = db.list.find_one({"name":str(name)},{"_id":0})
+        if (res != None) and (validacion_one(res,db2) == False):
             raise Exception ('corrupt data')
         return jsonify (res)
     except (Exception) as err:
@@ -88,7 +86,7 @@ def get():
         db = inicializar_db1()
         db2 = inicializar_db2()
         res = db.list.find_one({"id":str(id)},{"_id":0})
-        if (validacion_one(res,db2) == False):
+        if (res != None) and (validacion_one(res,db2) == False):
             raise Exception ('corrupt data')
         return jsonify (res)
     except (Exception) as err:
@@ -102,7 +100,7 @@ def listall():
         res = []
         for x in db.list.find({},{"_id":0}):
             res.append(x)
-        if (validacion(res,db2) == False):
+        if (validacion(res,db2) == False) or (db.list.count() != db2.list.count()):
             raise Exception ('corrupt data')
         return jsonify (res)
     except (Exception) as err:
@@ -116,7 +114,7 @@ def top5():
         res = []
         for x in db.list.find({"$where":"parseInt(this.cmc_rank)<=5"},{"_id":0}):
             res.append(x)
-        if (validacion(res,db2) == False):
+        if (validacion(res,db2) == False) or (db.list.count() != db2.list.count()):
             raise Exception ('corrupt data')
         return jsonify (res)
     except (Exception) as err:
@@ -130,7 +128,7 @@ def top20():
         res = []
         for x in db.list.find({"$where":"parseInt(this.cmc_rank)<=20"},{"_id":0}):
             res.append(x)
-        if (validacion(res,db2) == False):
+        if (validacion(res,db2) == False) or (db.list.count() != db2.list.count()):
             raise Exception ('corrupt data')
         return jsonify (res)
     except (Exception) as err:

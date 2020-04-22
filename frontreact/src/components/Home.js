@@ -1,5 +1,4 @@
 import React,{useEffect,useState} from 'react';
-import Navbar from './Navbar';
 import List from './List';
 import Error from './Error';
 import Loading from './Loading';
@@ -9,6 +8,7 @@ const Home = ({type}) => {
 
     const [list,setList] = useState ([]);
     const [error,setError] = useState (false);
+    const [error2,setError2] = useState (false);
     const [empty,setEmpty] = useState (false);
     const [refresh,setRefresh] = useState (false);
     const [loading,setLoading] = useState (false);
@@ -28,6 +28,7 @@ const Home = ({type}) => {
     useEffect (()=>{
         setRefresh (false);
         setError (false);
+        setError2 (false);
         setEmpty (false);
         setLoading (true);
         switch (type){
@@ -43,8 +44,12 @@ const Home = ({type}) => {
                     }
                 })
                 .catch((err)=>{
-                    setError (true);
-                    console.log(err);
+                    setLoading (false);
+                    if (err.includes('corrupt')){
+                        setError2 (true);
+                    }else{
+                        setError (true);
+                    }
                     return;
                 })
             break;
@@ -60,8 +65,12 @@ const Home = ({type}) => {
                     }
                 })
                 .catch((err)=>{
-                    setError (true);
-                    console.log(err);
+                    setLoading (false);
+                    if (err.includes('corrupt')){
+                        setError2 (true);
+                    }else{
+                        setError (true);
+                    }
                     return;
                 })
             break;
@@ -77,8 +86,12 @@ const Home = ({type}) => {
                     }
                 })
                 .catch((err)=>{
-                    setError (true);
-                    console.log(err);
+                    setLoading (false);
+                    if (err.includes('corrupt')){
+                        setError2 (true);
+                    }else{
+                        setError (true);
+                    }
                     return;
                 })
             break;
@@ -88,12 +101,12 @@ const Home = ({type}) => {
 
 	return (
         <div>
-            <Navbar />
             {(loading)?
             <Loading />
             :
             <div>
                 {(error)? <Error mensaje={"Ocurrió un error en el servidor"} /> : null}
+                {(error2)? <Error mensaje={"Los datos están corruptos"} /> : null}
                 {(empty)? <Error mensaje={"No hay datos para mostrar"} /> : null}
                 <List list={list} deleteCoin={deleteCoin}/>
             </div>
