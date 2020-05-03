@@ -33,6 +33,7 @@ def validacion_one (item,db2):
 
 #ruta para actualizar la bbdd con los datos de la api
 
+@app.before_first_request
 @app.route('/update_db', methods=['GET'])
 def update_db():
     try:
